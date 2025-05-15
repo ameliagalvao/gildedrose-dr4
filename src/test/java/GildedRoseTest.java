@@ -116,13 +116,26 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void conjuredItemsDegradeAsNormalItems() {
-        Item[] items = new Item[] { new Item("Conjured Mana Cake", 3, 6) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+    public void conjuredItemDegradesByTwoBeforeSellDate() {
+        Item[] items = { new Item("Conjured Mana Cake", 3, 10) };
+        new GildedRose(items).updateQuality();
         assertEquals(2, items[0].sellIn);
-        assertEquals(5, items[0].quality);
+        assertEquals(8, items[0].quality);
+    }
+
+    @Test
+    public void conjuredItemDegradesByFourAfterSellDate() {
+        Item[] items = { new Item("Conjured Mana Cake", 0, 10) };
+        new GildedRose(items).updateQuality();
+        assertEquals(-1, items[0].sellIn);
+        assertEquals(6, items[0].quality);
+    }
+
+    @Test
+    public void conjuredQualityNeverNegative() {
+        Item[] items = { new Item("Conjured Mana Cake", 1, 1) };
+        new GildedRose(items).updateQuality();
+        assertEquals(0, items[0].sellIn);
+        assertEquals(0, items[0].quality);
     }
 }

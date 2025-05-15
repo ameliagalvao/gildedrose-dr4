@@ -8,6 +8,7 @@ public class GildedRose {
             new SulfurasUpdater(),
             new AgedBrieUpdater(),
             new BackstagePassUpdater(),
+            new ConjuredItemUpdater(),
             new DefaultUpdater()
     );
     Item[] items;
